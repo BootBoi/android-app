@@ -31,8 +31,8 @@ export default function ConnectionDetail(props: Props) {
     };
 
     return (<View style={styles.container}>
-        <LargeButton onClick={onTurnOn} color={DefaultTheme.colors.primary} icon="play-circle">Turn On</LargeButton>
-        <LargeButton onClick={onTurnOff} color={DefaultTheme.colors.error} icon="power-off">Turn Off</LargeButton>
+        <LargeButton onClick={onTurnOn} color="#35bf5c" icon="play-circle">Turn On</LargeButton>
+        <LargeButton onClick={onTurnOff} color="#ea4335" icon="power-off">Turn Off</LargeButton>
         <LargeButton onClick={onConfigure} color={DefaultTheme.colors.disabled} icon="cogs">Configure</LargeButton>
     </View>);
 }

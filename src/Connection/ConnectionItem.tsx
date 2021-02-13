@@ -3,14 +3,19 @@ import {Connection} from "./Connection";
 import {Card, Paragraph, Title} from "react-native-paper";
 import {StyleSheet, View} from "react-native";
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import {Actions} from "react-native-router-flux";
 
 interface Props {
-    connection: Connection
+    connection: Connection;
+    onClick: () => void;
 }
 
 export default function ConnectionItem(props: Props) {
-    const {connection} = props;
+    const {connection, onClick} = props;
+    const onStartShouldSetResponder = () => {
+        onClick();
+        return true;
+    };
+
     const {cover} = StyleSheet.create({
         cover: {
             backgroundColor: connection.color,
@@ -21,7 +26,7 @@ export default function ConnectionItem(props: Props) {
         }
     });
     return (
-        <View style={styles.container} onTouchStart={() => Actions.detail()}>
+        <View style={styles.container} onStartShouldSetResponder={onStartShouldSetResponder}>
             <Card>
                 <View style={cover}>
                     <Icon style={styles.coverIcon} name={connection.icon}/>

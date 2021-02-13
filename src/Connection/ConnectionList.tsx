@@ -1,7 +1,9 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {Connection} from "./Connection";
 import ConnectionItem from "./ConnectionItem";
+import {RootStackParamList} from "../Main";
+import {StackNavigationProp} from "@react-navigation/stack";
 
 const connections: Connection[] = [
     {
@@ -59,11 +61,20 @@ const addConnectionItem: Connection = {
     icon: "plus"
 }
 
-export default function ConnectionList() {
+type ListScreenNavigationProp = StackNavigationProp<RootStackParamList, 'list'>;
+
+interface Props {
+    navigation: ListScreenNavigationProp
+}
+
+
+export default function ConnectionList(props: Props) {
+    const {navigation} = props;
     return (
         <View style={styles.container}>
-            {connections.map(connection => <ConnectionItem key={connection.id} connection={connection} />)}
-            <ConnectionItem connection={addConnectionItem} />
+            {connections.map(connection => <ConnectionItem key={connection.id} connection={connection}
+                                                           onClick={() => navigation.navigate('detail', connection)}/>)}
+            <ConnectionItem connection={addConnectionItem} onClick={() => navigation.navigate('edit')}/>
         </View>
     );
 }

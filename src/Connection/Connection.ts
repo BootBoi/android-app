@@ -1,5 +1,4 @@
 export interface Connection {
-    id: number | null;
     name: string;
     description?: string;
     icon: string;

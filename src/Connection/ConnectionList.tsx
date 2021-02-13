@@ -7,7 +7,6 @@ import {StackNavigationProp} from "@react-navigation/stack";
 
 const connections: Connection[] = [
     {
-        id: 1,
         name: "Big NAS",
         icon: "server",
         color: "#35bf5c",
@@ -22,7 +21,6 @@ const connections: Connection[] = [
         }
     },
     {
-        id: 2,
         name: "Test Laptop",
         icon: "laptop",
         color: "#ea4335",
@@ -37,7 +35,6 @@ const connections: Connection[] = [
         }
     },
     {
-        id: 3,
         name: "Raspberry",
         icon: "tv",
         color: "#f19601",
@@ -54,7 +51,6 @@ const connections: Connection[] = [
 ];
 
 const addConnectionItem: Connection = {
-    id: null,
     name: "Create",
     description: "Connection",
     color: "#1c6697",
@@ -72,7 +68,7 @@ export default function ConnectionList(props: Props) {
     const {navigation} = props;
     return (
         <View style={styles.container}>
-            {connections.map(connection => <ConnectionItem key={connection.id} connection={connection}
+            {connections.map(connection => <ConnectionItem key={connection.name} connection={connection}
                                                            onClick={() => navigation.navigate('detail', connection)}/>)}
             <ConnectionItem connection={addConnectionItem} onClick={() => navigation.navigate('edit')}/>
         </View>

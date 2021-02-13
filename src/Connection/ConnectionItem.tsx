@@ -1,24 +1,51 @@
-import {StyleSheet, Text, View} from "react-native";
 import React from "react";
 import {Connection} from "./Connection";
+import {Card, Paragraph, Title} from "react-native-paper";
+import {StyleSheet, View} from "react-native";
+import Icon from 'react-native-vector-icons/FontAwesome5';
+import {Actions} from "react-native-router-flux";
 
 interface Props {
     connection: Connection
 }
 
 export default function ConnectionItem(props: Props) {
-    const { connection } = props;
+    const {connection} = props;
+    const {cover} = StyleSheet.create({
+        cover: {
+            backgroundColor: connection.color,
+            alignItems: 'center',
+            justifyContent: 'center',
+            paddingTop: 16,
+            paddingBottom: 16,
+        }
+    });
     return (
-        <View style={styles.container}>
-            <Text>{connection.name}</Text>
+        <View style={styles.container} onTouchStart={() => Actions.detail()}>
+            <Card>
+                <View style={cover}>
+                    <Icon style={styles.coverIcon} name={connection.icon}/>
+                </View>
+                <Card.Content style={styles.content}>
+                    <Title numberOfLines={1}>{connection.name}</Title>
+                    <Paragraph
+                        numberOfLines={1}>{connection.description || connection.lanConnection?.macAddress}</Paragraph>
+                </Card.Content>
+            </Card>
         </View>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
+        padding: 8,
+        width: 160,
     },
+    content: {
+        paddingTop: 8
+    },
+    coverIcon: {
+        fontSize: 40,
+        color: '#ffffff',
+    }
 });

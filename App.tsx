@@ -1,20 +1,15 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import ConnectionList from "./src/Connection/ConnectionList";
+import { Provider as PaperProvider } from 'react-native-paper';
+import Main from "./src/Main";
+import {Router} from "react-native-router-flux";
 
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <ConnectionList />
-    </View>
+      <Router>
+          <PaperProvider>
+            <Main />
+          </PaperProvider>
+      </Router>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

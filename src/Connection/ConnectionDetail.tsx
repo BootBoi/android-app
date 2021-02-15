@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import {NativeModules, StyleSheet, View} from 'react-native';
 import {
   StackNavigationOptions,
   StackNavigationProp,
@@ -27,8 +27,18 @@ export const ConnectionDetailSetTitle = ({
 export default function ConnectionDetail(props: Props) {
   const {route, navigation} = props;
   const connection = route.params;
+  const {RemoteCommunicationModule} = NativeModules;
 
-  const onTurnOn = () => {};
+  const onTurnOn = () => {
+    console.log('clicked turn on');
+    RemoteCommunicationModule.wakeUp(connection.lanConnection?.macAddress)
+      .then((result: any) => {
+        console.log('great success', result);
+      })
+      .catch((error: any) => {
+        console.error('oh no', error);
+      });
+  };
   const onTurnOff = () => {};
   const onConfigure = () => {
     navigation.navigate('edit', connection);

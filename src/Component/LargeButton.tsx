@@ -12,14 +12,12 @@ interface Props {
 
 export default function LargeButton(props: Props) {
   const {icon, children, color, onClick} = props;
-  const onStartShouldSetResponder = () => {
+  const onTouchEnd = () => {
     onClick();
     return true;
   };
   return (
-    <View
-      style={styles.container}
-      onStartShouldSetResponder={onStartShouldSetResponder}>
+    <View style={styles.container} onTouchEnd={onTouchEnd}>
       <Card>
         <Card.Content style={{backgroundColor: color}}>
           <Icon style={styles.icon} name={icon} />
@@ -33,6 +31,7 @@ export default function LargeButton(props: Props) {
 const styles = StyleSheet.create({
   container: {
     padding: 8,
+    width: 160,
   },
   title: {
     color: '#ffffff',

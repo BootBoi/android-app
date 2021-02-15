@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import {ScrollView, StyleSheet, View} from 'react-native';
 import {Connection} from './Connection';
 import ConnectionItem from './ConnectionItem';
 import {RootStackParamList} from '../Main';
@@ -11,13 +11,14 @@ const connections: Connection[] = [
     icon: 'server',
     color: '#35bf5c',
     lanConnection: {
-      macAddress: 'ab:cd:ef:ad:h1',
+      macAddress: '80:EE:73:E0:0A:DC',
     },
     sshConnection: {
-      domain: '10.0.0.1',
-      username: 'r00t',
-      password: 's3cure',
-      port: 22,
+      domain: '10.0.0.5',
+      username: 'bootboi',
+      password:
+        'c2J3LLpYSGJbNdxuiGGoADPgOxkF22BLtv8C30qjvR7AYOeBHQfMbRUesdaejGdMsa4qa2xjiBi4K3ntJ4e',
+      port: 21851,
     },
   },
   {
@@ -66,19 +67,21 @@ interface Props {
 export default function ConnectionList(props: Props) {
   const {navigation} = props;
   return (
-    <View style={styles.container}>
-      {connections.map((connection) => (
+    <ScrollView>
+      <View style={styles.container}>
+        {connections.map((connection) => (
+          <ConnectionItem
+            key={connection.name}
+            connection={connection}
+            onClick={() => navigation.navigate('detail', connection)}
+          />
+        ))}
         <ConnectionItem
-          key={connection.name}
-          connection={connection}
-          onClick={() => navigation.navigate('detail', connection)}
+          connection={addConnectionItem}
+          onClick={() => navigation.navigate('edit')}
         />
-      ))}
-      <ConnectionItem
-        connection={addConnectionItem}
-        onClick={() => navigation.navigate('edit')}
-      />
-    </View>
+      </View>
+    </ScrollView>
   );
 }
 

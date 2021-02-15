@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import {ScrollView, StyleSheet, View} from 'react-native';
 import {
   StackNavigationOptions,
   StackNavigationProp,
@@ -49,14 +49,16 @@ export default function ConnectionEdit(props: Props) {
     route.params || initialConnection,
   );
   return (
-    <View style={styles.container}>
-      <TextInput
-        style={styles.input}
-        label="name"
-        value={connection.name}
-        onChangeText={(text) => setConnection({...connection, name: text})}
-      />
-    </View>
+    <ScrollView>
+      <View style={styles.container}>
+        <TextInput
+          style={styles.input}
+          label="name"
+          value={connection.name}
+          onChangeText={(text) => setConnection({...connection, name: text})}
+        />
+      </View>
+    </ScrollView>
   );
 }
 

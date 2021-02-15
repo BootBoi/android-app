@@ -11,7 +11,7 @@ interface Props {
 
 export default function ConnectionItem(props: Props) {
   const {connection, onClick} = props;
-  const onStartShouldSetResponder = () => {
+  const onTouchEnd = () => {
     onClick();
     return true;
   };
@@ -28,7 +28,7 @@ export default function ConnectionItem(props: Props) {
   return (
     <View
       style={styles.container}
-      onStartShouldSetResponder={onStartShouldSetResponder}>
+      onTouchEnd={onTouchEnd}>
       <Card>
         <View style={cover}>
           <Icon style={styles.coverIcon} name={connection.icon} />

@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {ScrollView, StyleSheet, View} from 'react-native';
 import {Connection} from './Connection';
 import ConnectionItem from './ConnectionItem';
 import {RootStackParamList} from '../Main';
 import {StackNavigationProp} from '@react-navigation/stack';
+import * as SecureStore from 'expo-secure-store';
 
 const connections: Connection[] = [
   {
@@ -66,6 +67,18 @@ interface Props {
 
 export default function ConnectionList(props: Props) {
   const {navigation} = props;
+
+  useEffect(() => {
+    console.log('setting into secure store');
+    SecureStore.setItemAsync(
+      'CONNECTIONS',
+      JSON.stringify(connections),
+    ).then(() => console.log('saved into store.'));
+    SecureStore.getItemAsync('CONNECTIONS').then((r) =>
+      console.log('got from store', r),
+    );
+  }, []);
+
   return (
     <ScrollView>
       <View style={styles.container}>

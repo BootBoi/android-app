@@ -1,4 +1,5 @@
 apply plugin: "com.android.application"
+apply from: '../../node_modules/react-native-unimodules/gradle.groovy'
 
 import com.android.build.OutputFile
 
@@ -187,6 +188,8 @@ dependencies {
     implementation 'com.github.bootboi:remote-communication:master-SNAPSHOT'
 
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
+
+    addUnimodulesDependencies()
 
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
       exclude group:'com.facebook.fbjni'

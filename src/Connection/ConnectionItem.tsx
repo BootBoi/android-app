@@ -26,9 +26,7 @@ export default function ConnectionItem(props: Props) {
     },
   });
   return (
-    <View
-      style={styles.container}
-      onTouchEnd={onTouchEnd}>
+    <View style={styles.container} onTouchEnd={onTouchEnd}>
       <Card>
         <View style={cover}>
           <Icon style={styles.coverIcon} name={connection.icon} />

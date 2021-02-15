@@ -1,14 +1,20 @@
 import React from 'react';
-import {Provider as PaperProvider} from 'react-native-paper';
+import {
+  Provider as PaperProvider,
+  DefaultTheme as PaperTheme,
+} from 'react-native-paper';
 import Main from './src/Main';
-import {NavigationContainer} from '@react-navigation/native';
+import {
+  NavigationContainer,
+  DefaultTheme as NavigationTheme,
+} from '@react-navigation/native';
 
 export default function App() {
-    return (
-        <NavigationContainer>
-            <PaperProvider>
-                <Main />
-            </PaperProvider>
-        </NavigationContainer>
-    );
+  return (
+    <NavigationContainer theme={NavigationTheme}>
+      <PaperProvider theme={PaperTheme}>
+        <Main />
+      </PaperProvider>
+    </NavigationContainer>
+  );
 }

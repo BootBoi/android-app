@@ -34,7 +34,7 @@ export default function ConnectionItem(props: Props) {
         <Card.Content style={styles.content}>
           <Title numberOfLines={1}>{connection.name}</Title>
           <Paragraph numberOfLines={1}>
-            {connection.description || connection.lanConnection?.macAddress}
+            {connection.description || connection.lanConnection.macAddress}
           </Paragraph>
         </Card.Content>
       </Card>

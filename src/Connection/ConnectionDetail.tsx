@@ -8,15 +8,16 @@ import {RootStackParamList} from '../Main';
 import {RouteProp} from '@react-navigation/native';
 import LargeButton from '../Component/LargeButton';
 import {
+  ActivityIndicator,
   Card,
   DefaultTheme,
   Paragraph,
-  Title,
-  ActivityIndicator,
-  Chip,
   Snackbar,
+  Title,
 } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import {Connection} from './Connection';
+import {getStoredConnection} from './ConnectionStoreHelper';
 
 type DetailScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -49,15 +50,19 @@ export default function ConnectionDetail(props: Props) {
     null,
   );
   const {route, navigation} = props;
-  const connection = route.params;
+  const [connection, setConnection] = useState<Connection>(route.params);
   const {RemoteCommunicationModule} = NativeModules;
 
-  useEffect(() => {
-    const {sshConnection} = connection;
-    if (!sshConnection) {
-      setLoading(false);
-      return;
+  async function loadConnection() {
+    const storedConnection = await getStoredConnection(connection.id);
+    if (storedConnection) {
+      checkSsh(storedConnection);
+      setConnection(storedConnection);
     }
+  }
+
+  function checkSsh(storedConnection: Connection) {
+    const {sshConnection} = storedConnection;
     setLoading(true);
     const {domain, port, username, password} = sshConnection;
     RemoteCommunicationModule.canExecuteAsRoot(domain, port, username, password)
@@ -71,7 +76,13 @@ export default function ConnectionDetail(props: Props) {
       .finally(() => {
         setLoading(false);
       });
-  }, []);
+  }
+
+  useEffect(() => {
+    return navigation.addListener('focus', () => {
+      loadConnection();
+    });
+  }, [navigation, loadConnection]);
 
   const handleRemoteActionPromise = (
     promise: Promise<string>,
@@ -84,7 +95,7 @@ export default function ConnectionDetail(props: Props) {
           success: true,
         });
       })
-      .catch((error: unknown) => {
+      .catch((error: any) => {
         setRemoteResult({
           message: error.message,
           success: false,
@@ -97,7 +108,7 @@ export default function ConnectionDetail(props: Props) {
 
   const onTurnOn = () => {
     const promise = RemoteCommunicationModule.wakeUp(
-      connection.lanConnection?.macAddress,
+      connection.lanConnection.macAddress,
     );
     handleRemoteActionPromise(promise, 'Successfully sent Wake on LAN package');
   };
@@ -142,30 +153,25 @@ export default function ConnectionDetail(props: Props) {
             <Card>
               <Card.Content>
                 <Title>{connection.name}</Title>
-                {connection.lanConnection && (
-                  <Paragraph>{connection.lanConnection.macAddress}</Paragraph>
-                )}
+                <Paragraph>{connection.lanConnection.macAddress}</Paragraph>
                 {loading && <ActivityIndicator animating={true} />}
                 {!loading && (
                   <>
-                    {connection.sshConnection && (
-                      <>
-                        <Paragraph>
-                          {connection.sshConnection.username}@
-                          {connection.sshConnection.domain}
-                        </Paragraph>
+                    <Paragraph>
+                      {connection.sshConnection.username}@
+                      {connection.sshConnection.domain}:
+                      {connection.sshConnection.port}
+                    </Paragraph>
 
-                        {canExecuteAsRoot ? (
-                          <Paragraph style={styles.successText}>
-                            <Icon name="check" /> Logged with sudo
-                          </Paragraph>
-                        ) : (
-                          <Paragraph style={styles.errorText}>
-                            <Icon name="times" /> Log in failed
-                            {canExecuteError && `: ${canExecuteError}`}
-                          </Paragraph>
-                        )}
-                      </>
+                    {canExecuteAsRoot ? (
+                      <Paragraph style={styles.successText}>
+                        <Icon name="check" /> Logged with sudo
+                      </Paragraph>
+                    ) : (
+                      <Paragraph style={styles.errorText}>
+                        <Icon name="times" /> Log in failed
+                        {canExecuteError && `: ${canExecuteError}`}
+                      </Paragraph>
                     )}
                   </>
                 )}

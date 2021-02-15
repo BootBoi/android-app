@@ -1,58 +1,13 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {ScrollView, StyleSheet, View} from 'react-native';
 import {Connection} from './Connection';
 import ConnectionItem from './ConnectionItem';
 import {RootStackParamList} from '../Main';
 import {StackNavigationProp} from '@react-navigation/stack';
-import * as SecureStore from 'expo-secure-store';
-
-const connections: Connection[] = [
-  {
-    name: 'Big NAS',
-    icon: 'server',
-    color: '#35bf5c',
-    lanConnection: {
-      macAddress: '80:EE:73:E0:0A:DC',
-    },
-    sshConnection: {
-      domain: '10.0.0.5',
-      username: 'bootboi',
-      password:
-        'c2J3LLpYSGJbNdxuiGGoADPgOxkF22BLtv8C30qjvR7AYOeBHQfMbRUesdaejGdMsa4qa2xjiBi4K3ntJ4e',
-      port: 21851,
-    },
-  },
-  {
-    name: 'Test Laptop',
-    icon: 'laptop',
-    color: '#ea4335',
-    lanConnection: {
-      macAddress: '12:44:e1:ad:h1',
-    },
-    sshConnection: {
-      domain: '10.0.0.5',
-      username: 'r00t',
-      password: 's3cure',
-      port: 22,
-    },
-  },
-  {
-    name: 'Raspberry',
-    icon: 'tv',
-    color: '#f19601',
-    lanConnection: {
-      macAddress: 'ab:cd:ef:ad:h1',
-    },
-    sshConnection: {
-      domain: '10.0.0.5',
-      username: 'r00t',
-      password: 's3cure',
-      port: 22,
-    },
-  },
-];
+import {getStoredConnections} from './ConnectionStoreHelper';
 
 const addConnectionItem: Connection = {
+  id: 0,
   name: 'Create',
   description: 'Connection',
   color: '#1c6697',
@@ -65,19 +20,28 @@ interface Props {
   navigation: ListScreenNavigationProp;
 }
 
+interface State {
+  connections: Connection[];
+}
+
 export default function ConnectionList(props: Props) {
+  const initialState: State = {
+    connections: [],
+  };
+  const [state, setState] = useState<State>(initialState);
   const {navigation} = props;
+  const {connections} = state;
 
   useEffect(() => {
-    console.log('setting into secure store');
-    SecureStore.setItemAsync(
-      'CONNECTIONS',
-      JSON.stringify(connections),
-    ).then(() => console.log('saved into store.'));
-    SecureStore.getItemAsync('CONNECTIONS').then((r) =>
-      console.log('got from store', r),
-    );
-  }, []);
+    return navigation.addListener('focus', () => {
+      async function loadConnections() {
+        const storedConnections = await getStoredConnections();
+        setState({connections: storedConnections});
+      }
+
+      loadConnections();
+    });
+  }, [navigation]);
 
   return (
     <ScrollView>

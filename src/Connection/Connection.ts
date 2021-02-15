@@ -1,10 +1,11 @@
 export interface Connection {
+  id: number;
   name: string;
   description?: string;
   icon: string;
   color: string;
-  lanConnection?: LanConnection;
-  sshConnection?: SshConnection;
+  lanConnection: LanConnection;
+  sshConnection: SshConnection;
 }
 
 interface LanConnection {

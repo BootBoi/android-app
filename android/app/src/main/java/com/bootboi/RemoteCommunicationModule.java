@@ -1,10 +1,14 @@
 package com.bootboi;
+
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
+import com.github.bootboi.SshCommandException;
 import com.github.bootboi.WakeOnLan;
 import com.github.bootboi.SshCommand;
+
+import org.jetbrains.annotations.NotNull;
 
 public class RemoteCommunicationModule extends ReactContextBaseJavaModule {
     RemoteCommunicationModule(ReactApplicationContext context) {
@@ -25,56 +29,57 @@ public class RemoteCommunicationModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void powerOff(String host, int port, String user, String password, Promise promise) {
-        SshCommand sshCommand = new SshCommand(host, port, user, password);
-        try {
-            String result = sshCommand.powerOff();
-            promise.resolve(result);
-        } catch (Exception exception) {
-            promise.reject(exception);
-        }
+        new SshCommandThread(host, port, user, password, promise, SshCommand::powerOff).start();
     }
 
     @ReactMethod
     public void reboot(String host, int port, String user, String password, Promise promise) {
-        SshCommand sshCommand = new SshCommand(host, port, user, password);
-        try {
-            String result = sshCommand.reboot();
-            promise.resolve(result);
-        } catch (Exception exception) {
-            promise.reject(exception);
-        }
+        new SshCommandThread(host, port, user, password, promise, SshCommand::reboot).start();
     }
 
     @ReactMethod
     public void whoAmI(String host, int port, String user, String password, Promise promise) {
-        SshCommand sshCommand = new SshCommand(host, port, user, password);
-        try {
-            String result = sshCommand.whoAmI();
-            promise.resolve(result);
-        } catch (Exception exception) {
-            promise.reject(exception);
-        }
+        new SshCommandThread(host, port, user, password, promise, SshCommand::whoAmI).start();
     }
 
     @ReactMethod
     public void canExecuteAsRoot(String host, int port, String user, String password, Promise promise) {
-        SshCommand sshCommand = new SshCommand(host, port, user, password);
-        try {
-            Boolean result = sshCommand.canExecuteAsRoot();
-            promise.resolve(result);
-        } catch (Exception exception) {
-            promise.reject(exception);
-        }
+        new SshCommandThread(host, port, user, password, promise, SshCommand::canExecuteAsRoot).start();
     }
 
     @ReactMethod
     public void isReachable(String host, int port, String user, String password, Promise promise) {
-        SshCommand sshCommand = new SshCommand(host, port, user, password);
-        promise.resolve(sshCommand.isReachable());
+        new SshCommandThread(host, port, user, password, promise, SshCommand::isReachable).start();
     }
 
+    @NotNull
     @Override
     public String getName() {
         return "RemoteCommunicationModule";
+    }
+
+    @FunctionalInterface
+    interface SshCommandFunction<T, R> {
+        R apply(T t) throws SshCommandException;
+    }
+
+    static class SshCommandThread extends Thread {
+        private final SshCommandFunction<SshCommand, Object> call;
+        private final SshCommand sshCommand;
+        private final Promise promise;
+
+        SshCommandThread(String host, int port, String user, String password, Promise promise, SshCommandFunction<SshCommand, Object> call) {
+            this.promise = promise;
+            this.sshCommand = new SshCommand(host, port, user, password);
+            this.call = call;
+        }
+
+        public void run() {
+            try {
+                promise.resolve(call.apply(sshCommand));
+            } catch (Exception exception) {
+                promise.reject(exception);
+            }
+        }
     }
 }

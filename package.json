@@ -1,5 +1,5 @@
 {
-  "name": "BootBoi",
+  "name": "boot-boi",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -15,7 +15,7 @@
     "@react-navigation/stack": "^5.14.2",
     "@types/react-native-vector-icons": "^6.4.6",
     "expo-secure-store": "^10.0.0",
-    "react": "16.13.1",
+    "react": "17.0.1",
     "react-native": "0.63.4",
     "react-native-gesture-handler": "^1.10.1",
     "react-native-paper": "^4.7.1",
@@ -27,18 +27,18 @@
     "react-navigation": "^4.4.3"
   },
   "devDependencies": {
-    "@babel/core": "^7.8.4",
-    "@babel/runtime": "^7.8.4",
-    "@react-native-community/eslint-config": "^1.1.0",
-    "@types/jest": "^25.2.3",
-    "@types/react-native": "^0.63.2",
-    "@types/react-test-renderer": "^16.9.2",
-    "babel-jest": "^25.1.0",
-    "eslint": "^6.5.1",
-    "jest": "^25.1.0",
-    "metro-react-native-babel-preset": "^0.59.0",
-    "react-test-renderer": "16.13.1",
-    "typescript": "^3.8.3"
+    "@babel/core": "^7.12.16",
+    "@babel/runtime": "^7.12.13",
+    "@react-native-community/eslint-config": "^2.0.0",
+    "@types/jest": "^26.0.20",
+    "@types/react-native": "^0.63.49",
+    "@types/react-test-renderer": "^17.0.1",
+    "babel-jest": "^26.6.3",
+    "eslint": "^7.20.0",
+    "jest": "^26.6.3",
+    "metro-react-native-babel-preset": "^0.65.1",
+    "react-test-renderer": "17.0.1",
+    "typescript": "^4.1.5"
   },
   "jest": {
     "preset": "react-native",

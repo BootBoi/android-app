@@ -10,7 +10,9 @@ const addConnectionItem: Connection = {
   id: 0,
   name: 'Create',
   description: 'Connection',
-  color: '#1c6697',
+  // @ts-ignore
+  color: '#1fb14d',
+  // @ts-ignore
   icon: 'plus',
   sshConnection: {
     domain: '',

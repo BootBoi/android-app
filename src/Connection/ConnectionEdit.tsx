@@ -46,7 +46,7 @@ export default function ConnectionEdit(props: Props) {
   const [, setSaveLoading] = useState(false);
   const initialConnection: Connection = {
     id: Date.now(),
-    color: '#35bf5c',
+    color: '#0476E9',
     icon: 'server',
     name: '',
     lanConnection: {

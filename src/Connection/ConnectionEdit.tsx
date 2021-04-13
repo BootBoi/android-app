@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {ScrollView, StyleSheet, View} from 'react-native';
+import {Linking, ScrollView, StyleSheet, View} from 'react-native';
 import {
   StackNavigationOptions,
   StackNavigationProp,
@@ -7,7 +7,7 @@ import {
 import {RouteProp} from '@react-navigation/native';
 import {RootStackParamList} from '../Main';
 import {Connection} from './Connection';
-import {Button, TextInput} from 'react-native-paper';
+import {Button, HelperText, TextInput} from 'react-native-paper';
 import {
   deleteConnection,
   insertOrUpdateConnection,
@@ -15,6 +15,7 @@ import {
 import ConnectionItem from './ConnectionItem';
 import ColorPicker from '../Component/ColorPicker';
 import IconPicker from '../Component/IconPicker';
+import { Text } from 'react-native';
 
 type EditScreenNavigationProp = StackNavigationProp<RootStackParamList, 'edit'>;
 type EditScreenRouteProp = RouteProp<RootStackParamList, 'edit'>;
@@ -77,6 +78,11 @@ export default function ConnectionEdit(props: Props) {
     editedConnection || initialConnection,
   );
 
+  const isInitialConnection = initialConnection.id === connection.id;
+  const isMacAddressValid = connection.lanConnection.macAddress.match(/([0-9A-F]{2}[:]){5}([0-9A-F]{2})/) !== null;
+  const showMacAddressError = !isInitialConnection && !isMacAddressValid;
+  const isSaveDisabled = !isMacAddressValid;
+
   return (
     <ScrollView>
       <View style={styles.container}>
@@ -96,6 +102,7 @@ export default function ConnectionEdit(props: Props) {
           style={styles.input}
           label="MAC Address"
           value={connection.lanConnection.macAddress}
+          error={showMacAddressError}
           onChangeText={(text) =>
             setConnection({
               ...connection,
@@ -103,6 +110,13 @@ export default function ConnectionEdit(props: Props) {
             })
           }
         />
+        {showMacAddressError && <HelperText type="error">
+          The MAC Address needs to be in the format A1:B2:C3:D4:E5:F6.
+        </HelperText>}
+        <HelperText type="info">
+          Wake On LAN Needs to be enabled in the BIOS of the machine you want to power on!{'  '}
+          <Text style={styles.link} onPress={() => Linking.openURL('https://github.com/BootBoi/android-app/#power-on')}>Read more here.</Text>
+        </HelperText>
         <TextInput
           style={styles.input}
           label="SSH Host"
@@ -125,6 +139,10 @@ export default function ConnectionEdit(props: Props) {
             })
           }
         />
+        <HelperText type="info">
+          This SSH User needs have sudo access to whoami, poweroff and reboot!{'  '}
+          <Text style={styles.link} onPress={() => Linking.openURL('https://github.com/BootBoi/android-app/#power-off--reboot')}>Read more here.</Text>
+        </HelperText>
         <TextInput
           style={styles.input}
           secureTextEntry={true}
@@ -161,6 +179,7 @@ export default function ConnectionEdit(props: Props) {
             dark={true}
             style={styles.button}
             mode="contained"
+            disabled={isSaveDisabled}
             onTouchEnd={onSave}>
             Save
           </Button>
@@ -195,5 +214,8 @@ const styles = StyleSheet.create({
   },
   input: {
     margin: 8,
+  },
+  link: {
+    textDecorationLine: 'underline',
   },
 });

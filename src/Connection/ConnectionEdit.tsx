@@ -12,8 +12,9 @@ import {
   deleteConnection,
   insertOrUpdateConnection,
 } from './ConnectionStoreHelper';
-import ConnectionItem from "./ConnectionItem";
-import ColorPicker from "../Component/ColorPicker";
+import ConnectionItem from './ConnectionItem';
+import ColorPicker from '../Component/ColorPicker';
+import IconPicker from '../Component/IconPicker';
 
 type EditScreenNavigationProp = StackNavigationProp<RootStackParamList, 'edit'>;
 type EditScreenRouteProp = RouteProp<RootStackParamList, 'edit'>;
@@ -42,7 +43,7 @@ function hasOnlyDigits(value: string) {
 export default function ConnectionEdit(props: Props) {
   const {route, navigation} = props;
   const editedConnection = route.params;
-  const [setSaveLoading] = useState(false);
+  const [, setSaveLoading] = useState(false);
   const initialConnection: Connection = {
     id: Date.now(),
     color: '#35bf5c',
@@ -79,9 +80,8 @@ export default function ConnectionEdit(props: Props) {
   return (
     <ScrollView>
       <View style={styles.container}>
-        <View style={styles.itemContainer}>
-          <ConnectionItem connection={connection} />
-        </View>
+        <IconPicker originalIcon={connection.icon} onIconChange={(icon) => setConnection({...connection, icon: icon})}
+                    component={<ConnectionItem connection={connection} />} />
         <ColorPicker
           originalColor={connection.color}
           onColorChange={(color) => setConnection({...connection, color: color})}
@@ -184,10 +184,6 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
     padding: 8,
-  },
-  itemContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
   },
   buttonContainer: {
     flexDirection: 'row',

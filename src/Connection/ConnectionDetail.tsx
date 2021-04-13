@@ -80,6 +80,7 @@ export default function ConnectionDetail(props: Props) {
       })
       .catch((error: any) => {
         setCanExecuteError(error.message);
+        setCanExecuteAsRoot(false);
       })
       .finally(() => {
         setLoading(false);
@@ -193,21 +194,21 @@ export default function ConnectionDetail(props: Props) {
               onClick={onTurnOn}
               color="#35bf5c"
               icon="play-circle"
-              disabled={canExecuteError === null}>
+              disabled={canExecuteAsRoot}>
               Turn On
             </LargeButton>
             <LargeButton
               onClick={onTurnOff}
               color="#ea4335"
               icon="power-off"
-              disabled={canExecuteError !== null}>
+              disabled={!canExecuteAsRoot}>
               Turn Off
             </LargeButton>
             <LargeButton
               onClick={onReboot}
               color={DefaultTheme.colors.accent}
               icon="sync"
-              disabled={canExecuteError !== null}>
+              disabled={!canExecuteAsRoot}>
               Reboot
             </LargeButton>
             <LargeButton

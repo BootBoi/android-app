@@ -12,6 +12,15 @@ const addConnectionItem: Connection = {
   description: 'Connection',
   color: '#1c6697',
   icon: 'plus',
+  sshConnection: {
+    domain: '',
+    password: '',
+    username: '',
+    port: 0,
+  },
+  lanConnection: {
+    macAddress: '',
+  },
 };
 
 type ListScreenNavigationProp = StackNavigationProp<RootStackParamList, 'list'>;

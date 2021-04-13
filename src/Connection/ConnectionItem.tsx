@@ -6,13 +6,13 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 
 interface Props {
   connection: Connection;
-  onClick: () => void;
+  onClick?: () => void;
 }
 
 export default function ConnectionItem(props: Props) {
   const {connection, onClick} = props;
   const onTouchEnd = () => {
-    onClick();
+    onClick?.();
     return true;
   };
 

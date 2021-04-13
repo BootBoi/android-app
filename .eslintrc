@@ -1,0 +1,8 @@
+{
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "extends": [
+    "@react-native-community"
+  ]
+}

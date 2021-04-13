@@ -8,6 +8,9 @@ and pushing a button.
 BootBoi features **remote power on / power off / reboot** for as many remote machines as you can imagine with the 
 combined power of `ssh` and `Wake On Lan`.
 
+![BootBoi Screenshots](screenshots/screenshots_1.png)
+![BootBoi Screenshots](screenshots/screenshots_2.png)
+
 ## Preparing your Remote Machine
 - Before you can use BootBoi with your remote machines, you have to prepare them for **remote** rebooting and powering them on/off. 
 ### Power On

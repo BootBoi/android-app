@@ -1,4 +1,12 @@
+![BootBoi Logo](android/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png)
+
 # BootBoi
+Ever wanted to turn on your remote machine (laptop, Raspberry, NAS), but didn't want to leave the couch? Well I for sure
+understand this problem to the heart. But fear no more, as BootBoi is here to save you from the gruesome task of standing up 
+and pushing a button.
+
+BootBoi features **remote power on / power off / reboot** for as many remote machines as you can imagine with the 
+combined power of `ssh` and `Wake On Lan`.
 
 ## Preparing your Remote Machine
 - Before you can use BootBoi with your remote machines, you have to prepare them for **remote** rebooting and powering them on/off. 
@@ -11,16 +19,17 @@
 machine. 
 - So make sure that
   1. Those binaries are available and in `$PATH`
-  2. The SSH user has access to `sudo` for `whoami`, `poweroff` and `reboot`
+  2. The SSH user has `sudo` access to `whoami`, `poweroff` and `reboot`
       - Either by allowing the user sudo access only to those binaries via the [sudoers file](https://linux.die.net/man/5/sudoers) (recommended)
-          - `echo "bootboi ALL=(ALL) /sbin/reboot,/sbin/poweroff,/usr/bin/whoami" >> /etc/local/sudoers` 
+          - E.g. `echo "my_ssh_user ALL=(ALL) /sbin/reboot,/sbin/poweroff,/usr/bin/whoami" >> /etc/local/sudoers` 
       - Or by using `root` as SSH user in BootBoi 
-
-## Remote Communication Module
-- BootBoi uses this [Remote Communication Module](https://github.com/BootBoi/remote-communication) to use Java APIs for 
-rebooting and powering on/off.
-
+    
 ## Development
+### Remote Communication Module
+- BootBoi uses this [Remote Communication Module](https://github.com/BootBoi/remote-communication) to use Java APIs for
+  rebooting and powering on/off.
+
+### Environment
 - `yarn start` to start the development server
   - reload with `r`
 - `yarn android` to build the android app (dev server needs to be running), only needed when 

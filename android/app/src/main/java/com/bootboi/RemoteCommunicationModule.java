@@ -28,28 +28,28 @@ public class RemoteCommunicationModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void powerOff(String host, int port, String user, String password, Promise promise) {
-        new SshCommandThread(host, port, user, password, promise, SshCommand::powerOff).start();
+    public void powerOff(String host, int port, String user, String password, int timeout, Promise promise) {
+        new SshCommandThread(host, port, user, password, timeout, promise, SshCommand::powerOff).start();
     }
 
     @ReactMethod
-    public void reboot(String host, int port, String user, String password, Promise promise) {
-        new SshCommandThread(host, port, user, password, promise, SshCommand::reboot).start();
+    public void reboot(String host, int port, String user, String password, int timeout, Promise promise) {
+        new SshCommandThread(host, port, user, password, timeout, promise, SshCommand::reboot).start();
     }
 
     @ReactMethod
-    public void whoAmI(String host, int port, String user, String password, Promise promise) {
-        new SshCommandThread(host, port, user, password, promise, SshCommand::whoAmI).start();
+    public void whoAmI(String host, int port, String user, String password, int timeout, Promise promise) {
+        new SshCommandThread(host, port, user, password, timeout, promise, SshCommand::whoAmI).start();
     }
 
     @ReactMethod
-    public void canExecuteAsRoot(String host, int port, String user, String password, Promise promise) {
-        new SshCommandThread(host, port, user, password, promise, SshCommand::canExecuteAsRoot).start();
+    public void canExecuteAsRoot(String host, int port, String user, String password, int timeout, Promise promise) {
+        new SshCommandThread(host, port, user, password, timeout, promise, SshCommand::canExecuteAsRoot).start();
     }
 
     @ReactMethod
     public void isReachable(String host, int port, String user, String password, Promise promise) {
-        new SshCommandThread(host, port, user, password, promise, SshCommand::isReachable).start();
+        new SshCommandThread(host, port, user, password, 0, promise, SshCommand::isReachable).start();
     }
 
     @NotNull
@@ -68,9 +68,9 @@ public class RemoteCommunicationModule extends ReactContextBaseJavaModule {
         private final SshCommand sshCommand;
         private final Promise promise;
 
-        SshCommandThread(String host, int port, String user, String password, Promise promise, SshCommandFunction<SshCommand, Object> call) {
+        SshCommandThread(String host, int port, String user, String password, int timeout, Promise promise, SshCommandFunction<SshCommand, Object> call) {
             this.promise = promise;
-            this.sshCommand = new SshCommand(host, port, user, password);
+            this.sshCommand = new SshCommand(host, port, user, password, timeout);
             this.call = call;
         }
 

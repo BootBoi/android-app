@@ -39,6 +39,8 @@ export const ConnectionDetailSetTitle = ({
   route,
 }: Props): StackNavigationOptions => ({title: route.params.name});
 
+const timeout = 1500;
+
 export default function ConnectionDetail(props: Props) {
   const [canExecuteAsRoot, setCanExecuteAsRoot] = useState<boolean>(false);
   const [canExecuteError, setCanExecuteError] = useState<string | null>(null);
@@ -65,7 +67,13 @@ export default function ConnectionDetail(props: Props) {
     const {sshConnection} = storedConnection;
     setLoading(true);
     const {domain, port, username, password} = sshConnection;
-    RemoteCommunicationModule.canExecuteAsRoot(domain, port, username, password)
+    RemoteCommunicationModule.canExecuteAsRoot(
+      domain,
+      port,
+      username,
+      password,
+      timeout,
+    )
       .then((result: any) => {
         setCanExecuteError(null);
         setCanExecuteAsRoot(result);
@@ -123,6 +131,7 @@ export default function ConnectionDetail(props: Props) {
       port,
       username,
       password,
+      timeout,
     );
     handleRemoteActionPromise(promise);
   };
@@ -137,6 +146,7 @@ export default function ConnectionDetail(props: Props) {
       port,
       username,
       password,
+      timeout,
     );
     handleRemoteActionPromise(promise);
   };

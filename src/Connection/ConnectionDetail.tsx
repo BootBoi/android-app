@@ -189,16 +189,25 @@ export default function ConnectionDetail(props: Props) {
             </Card>
           </View>
           <View style={styles.buttonContainer}>
-            <LargeButton onClick={onTurnOn} color="#35bf5c" icon="play-circle">
+            <LargeButton
+              onClick={onTurnOn}
+              color="#35bf5c"
+              icon="play-circle"
+              disabled={canExecuteError === null}>
               Turn On
             </LargeButton>
-            <LargeButton onClick={onTurnOff} color="#ea4335" icon="power-off">
+            <LargeButton
+              onClick={onTurnOff}
+              color="#ea4335"
+              icon="power-off"
+              disabled={canExecuteError !== null}>
               Turn Off
             </LargeButton>
             <LargeButton
               onClick={onReboot}
               color={DefaultTheme.colors.accent}
-              icon="sync">
+              icon="sync"
+              disabled={canExecuteError !== null}>
               Reboot
             </LargeButton>
             <LargeButton

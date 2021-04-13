@@ -8,16 +8,27 @@ interface Props {
   color: string;
   children: string;
   onClick: () => void;
+  disabled?: boolean;
 }
 
 export default function LargeButton(props: Props) {
-  const {icon, children, color, onClick} = props;
+  const {icon, children, color, onClick, disabled} = props;
   const onTouchEnd = () => {
+    if (disabled) {
+      return true;
+    }
     onClick();
     return true;
   };
+  const containerStyles = StyleSheet.create({
+    container: {
+      padding: 8,
+      width: 160,
+      opacity: disabled ? 0.4 : 1,
+    },
+  });
   return (
-    <View style={styles.container} onTouchEnd={onTouchEnd}>
+    <View style={containerStyles.container} onTouchEnd={onTouchEnd}>
       <Card>
         <Card.Content style={{backgroundColor: color}}>
           <Icon style={styles.icon} name={icon} />
@@ -29,10 +40,6 @@ export default function LargeButton(props: Props) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    padding: 8,
-    width: 160,
-  },
   title: {
     color: '#ffffff',
     textAlign: 'center',

@@ -36,7 +36,9 @@ export default function IconPicker(props: Props) {
         <Icon name="chevron-left" style={styles.chevron} />
       </View>
       {component}
-      <View style={styles.chevronContainer} onTouchEnd={() => onTouchEnd(false)}>
+      <View
+        style={styles.chevronContainer}
+        onTouchEnd={() => onTouchEnd(false)}>
         <Icon name="chevron-right" style={styles.chevron} />
       </View>
     </View>

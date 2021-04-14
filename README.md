@@ -28,9 +28,6 @@ machine.
       - Or by using `root` as SSH user in BootBoi
     
 ## Release
-### F-Droid
-
-
 ### Google Play
 - Setup gradle and keystore for release: Follow https://reactnative.dev/docs/signed-apk-android
 - `cd android` and `./gradlew bundleRelease`

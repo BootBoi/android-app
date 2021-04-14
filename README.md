@@ -32,7 +32,8 @@ machine.
 
 
 ### Google Play
-- Follow https://reactnative.dev/docs/signed-apk-android to create a keystore and setup gradle 
+- Setup gradle and keystore for release: Follow https://reactnative.dev/docs/signed-apk-android
+- `cd android` and `./gradlew bundleRelease`
 - Change `BOOTBOI_UPLOAD_STORE_PASSWORD` and `BOOTBOI_UPLOAD_KEY_PASSWORD` in `android/gradle.properties` accordingly
 - To test the release, run `npx react-native run-android --variant=release`, it will create a release apk to `android/app/build/outputs/apk/release/app-release.apk`
 

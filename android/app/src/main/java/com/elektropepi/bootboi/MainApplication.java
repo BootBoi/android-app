@@ -1,6 +1,6 @@
-package com.bootboi;
+package com.elektropepi.bootboi;
 
-import com.bootboi.generated.BasePackageList;
+import com.elektropepi.bootboi.generated.BasePackageList;
 import android.app.Application;
 import android.content.Context;
 import com.facebook.react.PackageList;
@@ -74,7 +74,7 @@ public class MainApplication extends Application implements ReactApplication {
          We use reflection here to pick up the class that initializes Flipper,
         since Flipper library is not available in release mode
         */
-        Class<?> aClass = Class.forName("com.bootboi.ReactNativeFlipper");
+        Class<?> aClass = Class.forName("com.elektropepi.bootboi.ReactNativeFlipper");
         aClass
             .getMethod("initializeFlipper", Context.class, ReactInstanceManager.class)
             .invoke(null, context, reactInstanceManager);

@@ -1,4 +1,4 @@
-package com.bootboi;
+package com.elektropepi.bootboi;
 
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;

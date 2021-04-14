@@ -1,4 +1,4 @@
-package com.bootboi;
+package com.elektropepi.bootboi;
 
 import com.facebook.react.ReactActivity;
 

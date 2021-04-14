@@ -1,4 +1,4 @@
-package com.bootboi.generated;
+package com.elektropepi.bootboi.generated;
 
 import java.util.Arrays;
 import java.util.List;

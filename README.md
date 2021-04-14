@@ -28,8 +28,13 @@ machine.
       - Or by using `root` as SSH user in BootBoi
     
 ## Release
-- Follow https://reactnative.dev/docs/signed-apk-android
-- Run `npx react-native run-android --variant=release`, it will create a release apk to `android/app/build/outputs/apk/release/app-release.apk`
+### F-Droid
+
+
+### Google Play
+- Follow https://reactnative.dev/docs/signed-apk-android to create a keystore and setup gradle 
+- Change `BOOTBOI_UPLOAD_STORE_PASSWORD` and `BOOTBOI_UPLOAD_KEY_PASSWORD` in `android/gradle.properties` accordingly
+- To test the release, run `npx react-native run-android --variant=release`, it will create a release apk to `android/app/build/outputs/apk/release/app-release.apk`
 
 ## Development
 ### Remote Communication Module

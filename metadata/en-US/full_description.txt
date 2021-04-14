@@ -1,0 +1,22 @@
+Ever wanted to turn on your remote machine (laptop, Raspberry, NAS), but didn't want to leave the couch? Well I for sure
+understand this problem to the heart. But fear no more, as BootBoi is here to save you from the gruesome task of standing up
+and pushing a button.
+
+BootBoi features remote power on / power off / reboot for as many remote machines as you can imagine with the
+combined power of SSH and Wake On Lan.
+
+Preparing your Remote Machine
+* Before you can use BootBoi with your remote machines, you have to prepare them for **remote** rebooting and powering them on/off.
+
+Power On
+* To power a remote device on, BootBoi uses <a href="https://en.wikipedia.org/wiki/Wake-on-LAN">Wake On Lan</a>.
+* This needs to be enabled in the BIOS of the machine you want to power on, read more <a href="https://www.lifewire.com/wake-on-lan-4149800">here</a>.
+
+Power Off / Reboot
+* BootBoi uses <a href="https://simple.wikipedia.org/wiki/Secure_Shell">SSH</a> to execute whoami, poweroff and reboot on the remote machine.
+* So make sure that
+    * Those binaries are available and in $PATH
+    * The SSH user has sudo access to whoami, poweroff and reboot
+        * Either by allowing the user sudo access only to those binaries via the <a href="https://linux.die.net/man/5/sudoers">sudoers file</a> (recommended)
+            * E.g. `echo "my_ssh_user ALL=(ALL) /sbin/reboot,/sbin/poweroff,/usr/bin/whoami" >> /etc/local/sudoers`
+        * Or by using root as SSH user in BootBoi

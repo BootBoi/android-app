@@ -25,8 +25,12 @@ machine.
   2. The SSH user has `sudo` access to `whoami`, `poweroff` and `reboot`
       - Either by allowing the user sudo access only to those binaries via the [sudoers file](https://linux.die.net/man/5/sudoers) (recommended)
           - E.g. `echo "my_ssh_user ALL=(ALL) /sbin/reboot,/sbin/poweroff,/usr/bin/whoami" >> /etc/local/sudoers` 
-      - Or by using `root` as SSH user in BootBoi 
+      - Or by using `root` as SSH user in BootBoi
     
+## Release
+- Follow https://reactnative.dev/docs/signed-apk-android
+- Run `npx react-native run-android --variant=release`, it will create a release apk to `android/app/build/outputs/apk/release/app-release.apk`
+
 ## Development
 ### Remote Communication Module
 - BootBoi uses this [Remote Communication Module](https://github.com/BootBoi/remote-communication) to use Java APIs for

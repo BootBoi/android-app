@@ -1,5 +1,7 @@
 ![BootBoi Logo](android/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png)
 
+[![BootBoi Screenshots](images/google-play-badge.png)](https://play.google.com/store/apps/details?id=com.elektropepi.bootboi)
+
 # BootBoi
 Ever wanted to turn on your remote machine (laptop, Raspberry, NAS), but didn't want to leave the couch? Well I for sure
 understand this problem to the heart. But fear no more, as BootBoi is here to save you from the gruesome task of standing up 
@@ -8,8 +10,8 @@ and pushing a button.
 BootBoi features **remote power on / power off / reboot** for as many remote machines as you can imagine with the 
 combined power of `ssh` and `Wake On Lan`.
 
-![BootBoi Screenshots](screenshots/screenshots_1.png)
-![BootBoi Screenshots](screenshots/screenshots_2.png)
+![BootBoi Screenshots](images/screenshots_1.png)
+![BootBoi Screenshots](images/screenshots_2.png)
 
 ## Preparing your Remote Machine
 - Before you can use BootBoi with your remote machines, you have to prepare them for **remote** rebooting and powering them on/off. 

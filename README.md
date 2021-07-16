@@ -1,6 +1,11 @@
 ![BootBoi Logo](android/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png)
 
-[![BootBoi Screenshots](images/google-play-badge.png)](https://play.google.com/store/apps/details?id=com.elektropepi.bootboi)
+[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
+     alt="Get it on F-Droid"
+     height="80">](https://f-droid.org/packages/com.elektropepi.bootboi/)
+[<img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png"
+     alt="Get it on Google Play"
+     height="80">](https://play.google.com/store/apps/details?id=com.elektropepi.bootboi)
 
 # BootBoi
 Ever wanted to turn on your remote machine (laptop, Raspberry, NAS), but didn't want to leave the couch? Well I for sure
